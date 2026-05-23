@@ -5,6 +5,9 @@ import { fileURLToPath } from 'url';
 import { runMigrations } from './db/index.js';
 import catsRouter from './routes/cats.js';
 import uploadsRouter from './routes/uploads.js';
+import vaccinationsRouter from './routes/vaccinations.js';
+import medicalRouter from './routes/medical.js';
+import remindersRouter from './routes/reminders.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -20,6 +23,9 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api/cats', catsRouter);
+app.use('/api/cats/:id/vaccinations', vaccinationsRouter);
+app.use('/api/cats/:id/medical', medicalRouter);
+app.use('/api/reminders', remindersRouter);
 app.use('/api/uploads', uploadsRouter);
 
 runMigrations();
