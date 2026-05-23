@@ -14,6 +14,10 @@ vi.mock('@/hooks/useVaccinations', () => ({
     mutate: vi.fn(),
     isPending: false,
   }),
+  useUpdateVaccination: (_catId: number) => ({
+    mutate: vi.fn(),
+    isPending: false,
+  }),
   useDeleteVaccination: (_catId: number) => ({
     mutate: vi.fn(),
     isPending: false,

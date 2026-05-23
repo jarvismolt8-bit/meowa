@@ -18,6 +18,15 @@ export function useAddMedical(catId: number) {
   })
 }
 
+export function useUpdateMedical(catId: number) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ mId, data }: { mId: number; data: { date: string; notes: string } }) =>
+      medicalApi.update(catId, mId, data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['medical', catId] }),
+  })
+}
+
 export function useDeleteMedical(catId: number) {
   const qc = useQueryClient()
   return useMutation({

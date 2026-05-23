@@ -18,6 +18,15 @@ export function useAddVaccination(catId: number) {
   })
 }
 
+export function useUpdateVaccination(catId: number) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ vId, data }: { vId: number; data: { name: string; date: string } }) =>
+      vaccinationsApi.update(catId, vId, data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['vaccinations', catId] }),
+  })
+}
+
 export function useDeleteVaccination(catId: number) {
   const qc = useQueryClient()
   return useMutation({

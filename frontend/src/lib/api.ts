@@ -75,6 +75,8 @@ export const vaccinationsApi = {
     client.get<Vaccination[]>(`/api/cats/${catId}/vaccinations`).then((r) => r.data),
   create: (catId: number, data: { name: string; date: string }) =>
     client.post<Vaccination>(`/api/cats/${catId}/vaccinations`, data).then((r) => r.data),
+  update: (catId: number, vId: number, data: { name: string; date: string }) =>
+    client.put<Vaccination>(`/api/cats/${catId}/vaccinations/${vId}`, data).then((r) => r.data),
   delete: (catId: number, vId: number) =>
     client.delete(`/api/cats/${catId}/vaccinations/${vId}`),
 }
@@ -84,6 +86,8 @@ export const medicalApi = {
     client.get<MedicalEntry[]>(`/api/cats/${catId}/medical`).then((r) => r.data),
   create: (catId: number, data: { date: string; notes: string }) =>
     client.post<MedicalEntry>(`/api/cats/${catId}/medical`, data).then((r) => r.data),
+  update: (catId: number, mId: number, data: { date: string; notes: string }) =>
+    client.put<MedicalEntry>(`/api/cats/${catId}/medical/${mId}`, data).then((r) => r.data),
   delete: (catId: number, mId: number) =>
     client.delete(`/api/cats/${catId}/medical/${mId}`),
 }

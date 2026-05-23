@@ -10,8 +10,8 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog'
-import { useVaccinations, useAddVaccination, useDeleteVaccination } from '@/hooks/useVaccinations'
-import { PlusIcon, Trash2Icon } from 'lucide-react'
+import { useVaccinations, useAddVaccination, useUpdateVaccination, useDeleteVaccination } from '@/hooks/useVaccinations'
+import { PlusIcon, Trash2Icon, PencilIcon } from 'lucide-react'
 import Confetti, { useConfetti } from '@/components/gamification/Confetti'
 
 interface VaccinationsPanelProps {
@@ -22,8 +22,12 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
+  const [editingId, setEditingId] = useState<number | null>(null)
+  const [editName, setEditName] = useState('')
+  const [editDate, setEditDate] = useState('')
   const { data: vaccinations, isLoading, error } = useVaccinations(catId)
   const addVaccination = useAddVaccination(catId)
+  const updateVaccination = useUpdateVaccination(catId)
   const deleteVaccination = useDeleteVaccination(catId)
   const confetti = useConfetti(2000)
 
@@ -38,6 +42,33 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
           setOpen(false)
           setName('')
           setDate('')
+        },
+      },
+    )
+  }
+
+  function handleEditStart(v: { id: number; name: string; date: string }) {
+    setEditingId(v.id)
+    setEditName(v.name)
+    setEditDate(v.date)
+  }
+
+  function handleEditCancel() {
+    setEditingId(null)
+    setEditName('')
+    setEditDate('')
+  }
+
+  function handleEditSave(e: React.FormEvent, vId: number) {
+    e.preventDefault()
+    if (!editName.trim() || !editDate) return
+    updateVaccination.mutate(
+      { vId, data: { name: editName.trim(), date: editDate } },
+      {
+        onSuccess: () => {
+          setEditingId(null)
+          setEditName('')
+          setEditDate('')
         },
       },
     )
@@ -78,7 +109,7 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
         <CardHeader>
           <CardTitle>Vaccinations</CardTitle>
           <CardAction>
-            <Button size="sm" onClick={() => setOpen(true)}>
+            <Button size="sm" onClick={() => setOpen(true)} aria-label="Add vaccination">
               <PlusIcon /> Add vaccination
             </Button>
           </CardAction>
@@ -87,7 +118,7 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
           {!vaccinations || vaccinations.length === 0 ? (
             <div className="flex flex-col items-center gap-2 py-6 text-center">
               <p className="text-sm text-muted-foreground">No records yet</p>
-              <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+              <Button variant="outline" size="sm" onClick={() => setOpen(true)} aria-label="Add vaccination">
                 <PlusIcon /> Add vaccination
               </Button>
             </div>
@@ -96,22 +127,71 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
               {vaccinations.map((v) => (
                 <li
                   key={v.id}
-                  className="flex items-center justify-between gap-2 py-2 first:pt-0 last:pb-0"
+                  className="py-2 first:pt-0 last:pb-0"
                 >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium">{v.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {new Date(v.date).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    onClick={() => deleteVaccination.mutate(v.id)}
-                    disabled={deleteVaccination.isPending}
-                  >
-                    <Trash2Icon className="text-destructive" />
-                  </Button>
+                  {editingId === v.id ? (
+                    <form
+                      onSubmit={(e) => handleEditSave(e, v.id)}
+                      className="space-y-2 rounded-lg border bg-muted/30 p-3"
+                    >
+                      <div className="space-y-1">
+                        <Label htmlFor={`edit-vax-name-${v.id}`}>Vaccine name</Label>
+                        <Input
+                          id={`edit-vax-name-${v.id}`}
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label htmlFor={`edit-vax-date-${v.id}`}>Date</Label>
+                        <Input
+                          id={`edit-vax-date-${v.id}`}
+                          type="date"
+                          value={editDate}
+                          onChange={(e) => setEditDate(e.target.value)}
+                          required
+                        />
+                      </div>
+                      <div className="flex justify-between gap-2">
+                        <Button type="button" variant="ghost" size="sm" onClick={handleEditCancel}>
+                          Cancel
+                        </Button>
+                        <Button type="submit" size="sm" disabled={updateVaccination.isPending}>
+                          {updateVaccination.isPending ? 'Saving...' : 'Save'}
+                        </Button>
+                      </div>
+                    </form>
+                  ) : (
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-medium">{v.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(v.date).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          className="chip-violet cursor-pointer"
+                          onClick={() => handleEditStart(v)}
+                          aria-label={`Edit vaccination ${v.name}`}
+                        >
+                          <PencilIcon className="mr-1 size-3" />
+                          Edit
+                        </button>
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => deleteVaccination.mutate(v.id)}
+                          disabled={deleteVaccination.isPending}
+                          aria-label={`Delete vaccination ${v.name}`}
+                        >
+                          <Trash2Icon className="text-destructive" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
