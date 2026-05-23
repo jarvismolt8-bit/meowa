@@ -3,6 +3,8 @@ import { useCat } from '@/hooks/useCats'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import VaccinationsPanel from '@/components/VaccinationsPanel'
+import MedicalPanel from '@/components/MedicalPanel'
 
 export default function CatDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -107,8 +109,12 @@ export default function CatDetailPage() {
         </CardContent>
       </Card>
 
-      <div id="vaccinations-slot" data-testid="vaccinations-slot" />
-      <div id="medical-slot" data-testid="medical-slot" />
+      <div id="vaccinations-slot" data-testid="vaccinations-slot">
+        <VaccinationsPanel catId={catId} />
+      </div>
+      <div id="medical-slot" data-testid="medical-slot">
+        <MedicalPanel catId={catId} />
+      </div>
       <div id="gamification-slot" data-testid="gamification-slot" />
     </div>
   )
