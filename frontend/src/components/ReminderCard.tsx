@@ -55,6 +55,7 @@ export default function ReminderCard({ cat, status }: ReminderCardProps) {
               src={cat.photo_path}
               alt={cat.name}
               className="h-full w-full object-cover"
+              loading="lazy"
             />
           ) : (
             <div className="flex h-full items-center justify-center text-2xl">

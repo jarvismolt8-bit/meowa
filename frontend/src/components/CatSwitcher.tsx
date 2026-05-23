@@ -30,6 +30,7 @@ export default function CatSwitcher({ cats, selectedCatId, onSelect }: CatSwitch
                   src={cat.photo_path}
                   alt={cat.name}
                   className="h-full w-full object-cover"
+                  loading="lazy"
                 />
               ) : (
                 <span className="text-2xl">😺</span>

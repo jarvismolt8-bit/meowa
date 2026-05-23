@@ -26,6 +26,7 @@ export default function CatHero({ cat }: CatHeroProps) {
               src={cat.photo_path}
               alt={cat.name}
               className="h-full w-full rounded-full object-cover"
+              loading="lazy"
             />
           </div>
         ) : (
