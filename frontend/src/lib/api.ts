@@ -43,6 +43,17 @@ const client = axios.create({
   baseURL: '',
 })
 
+client.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    const msg = err.response?.data?.message ?? err.response?.data?.error ?? 'Request failed';
+    console.error('[api]', err);
+    // dispatch a custom event so Toast can pick it up globally
+    window.dispatchEvent(new CustomEvent('meowa:toast', { detail: { message: msg, type: 'error' } }));
+    return Promise.reject(err);
+  }
+);
+
 export const catsApi = {
   list: () => client.get<Cat[]>('/api/cats').then((r) => r.data),
   get: (id: number) => client.get<Cat>(`/api/cats/${id}`).then((r) => r.data),

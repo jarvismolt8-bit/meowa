@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import AppShell from '@/components/layout/AppShell'
 import HomePage from '@/pages/HomePage'
@@ -5,6 +6,9 @@ import CatDetailPage from '@/pages/CatDetailPage'
 import NewCatPage from '@/pages/NewCatPage'
 import EditCatPage from '@/pages/EditCatPage'
 import RemindersPage from '@/pages/RemindersPage'
+import ErrorBoundary from '@/components/ErrorBoundary'
+import Toast from '@/components/Toast'
+import { useToast } from '@/hooks/useToast'
 
 function Preview() {
   return (
@@ -95,16 +99,30 @@ function Preview() {
 }
 
 export default function App() {
+  const { toast, show } = useToast();
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ message: string; type: 'success' | 'error' | 'info' }>).detail;
+      show(detail.message, detail.type);
+    };
+    window.addEventListener('meowa:toast', handler);
+    return () => window.removeEventListener('meowa:toast', handler);
+  }, [show]);
+
   return (
-    <Routes>
-      <Route element={<AppShell />}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/cats/new" element={<NewCatPage />} />
-        <Route path="/cats/:id" element={<CatDetailPage />} />
-        <Route path="/cats/:id/edit" element={<EditCatPage />} />
-        <Route path="/reminders" element={<RemindersPage />} />
-        <Route path="/preview" element={<Preview />} />
-      </Route>
-    </Routes>
+    <ErrorBoundary>
+      <Routes>
+        <Route element={<AppShell />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/cats/new" element={<NewCatPage />} />
+          <Route path="/cats/:id" element={<CatDetailPage />} />
+          <Route path="/cats/:id/edit" element={<EditCatPage />} />
+          <Route path="/reminders" element={<RemindersPage />} />
+          <Route path="/preview" element={<Preview />} />
+        </Route>
+      </Routes>
+      <Toast toast={toast} />
+    </ErrorBoundary>
   )
 }
