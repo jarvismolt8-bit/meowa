@@ -22,6 +22,13 @@ export function getDb() {
   return db;
 }
 
+export function closeDb() {
+  if (db) {
+    db.close();
+    db = null;
+  }
+}
+
 export function runMigrations() {
   const conn = getDb();
   const schema = fs.readFileSync(SCHEMA_PATH, 'utf-8');
