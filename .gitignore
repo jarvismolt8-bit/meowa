@@ -1,0 +1,6 @@
+# TAO
+.tao/state/
+
+node_modules/
+backend/uploads/
+backend/data/*.db
