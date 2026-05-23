@@ -1,16 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
 import AppShell from '@/components/layout/AppShell'
-
-function Home() {
-  return <div><h1 className="text-2xl font-bold">Home</h1><p>Welcome to Meowa</p></div>
-}
+import HomePage from '@/pages/HomePage'
+import CatDetailPage from '@/pages/CatDetailPage'
 
 function NewCat() {
   return <div><h1 className="text-2xl font-bold">New Cat</h1></div>
-}
-
-function CatDetail() {
-  return <div><h1 className="text-2xl font-bold">Cat Detail</h1></div>
 }
 
 function EditCat() {
@@ -113,9 +107,9 @@ export default function App() {
   return (
     <Routes>
       <Route element={<AppShell />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/cats/new" element={<NewCat />} />
-        <Route path="/cats/:id" element={<CatDetail />} />
+        <Route path="/cats/:id" element={<CatDetailPage />} />
         <Route path="/cats/:id/edit" element={<EditCat />} />
         <Route path="/reminders" element={<Reminders />} />
         <Route path="/preview" element={<Preview />} />
