@@ -28,6 +28,3 @@ CREATE TABLE IF NOT EXISTS medical_entries (
   created_at TEXT,
   FOREIGN KEY (cat_id) REFERENCES cats(id) ON DELETE CASCADE
 );
-
-CREATE INDEX IF NOT EXISTS idx_vaccinations_cat_date ON vaccinations (cat_id, date DESC);
-CREATE INDEX IF NOT EXISTS idx_medical_cat_date ON medical_entries (cat_id, date DESC);
