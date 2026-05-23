@@ -307,11 +307,7 @@ export default function CatForm({ mode, initialData, onSuccess }: CatFormProps) 
             />
           </div>
 
-          <div className="flex items-center gap-3 pt-2">
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting && <Loader2 className="size-4 animate-spin" />}
-              {mode === 'create' ? 'Create Cat' : 'Save Changes'}
-            </Button>
+          <div className="flex items-center justify-between pt-2">
             <Button
               type="button"
               variant="outline"
@@ -319,6 +315,10 @@ export default function CatForm({ mode, initialData, onSuccess }: CatFormProps) 
               disabled={isSubmitting}
             >
               Cancel
+            </Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="size-4 animate-spin" />}
+              {mode === 'create' ? 'Create Cat' : 'Save Changes'}
             </Button>
           </div>
         </form>
