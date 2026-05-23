@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useRef } from 'react'
 
 const COLORS = ['#FFADAD', '#A8E6CF', '#FFF3B0', '#A0C4FF', '#B5EAD7', '#FFD6A5']
 const PARTICLE_COUNT = 30
