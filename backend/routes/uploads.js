@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
+import { HttpError } from '../lib/errors.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -36,6 +37,11 @@ router.post('/', upload.single('file'), (req, res) => {
     return res.status(400).json({ error: 'No file uploaded' });
   }
   res.json({ path: `/uploads/${req.file.filename}` });
+});
+
+router.use((err, req, res, next) => {
+  if (err) return next(new HttpError(400, err.message));
+  next();
 });
 
 export default router;
