@@ -3,7 +3,6 @@ import { Link, Outlet } from 'react-router-dom'
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/reminders', label: 'Reminders' },
-  { to: '/cats/new', label: 'Add Cat' },
 ]
 
 export default function AppShell() {
@@ -30,6 +29,14 @@ export default function AppShell() {
                 {link.label}
               </Link>
             ))}
+          </div>
+          <div className="ml-auto">
+            <Link
+              to="/cats/new"
+              className="rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+            >
+              + Add
+            </Link>
           </div>
         </nav>
       </header>
