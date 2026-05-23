@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { type Cat } from '@/lib/api'
 import { cn } from '@/lib/utils'
@@ -13,18 +12,18 @@ interface ReminderCardProps {
 const statusConfig = {
   overdue: {
     label: 'Overdue',
-    borderClass: 'ring-pastel-red/40 ring-2',
-    badgeClass: 'bg-destructive/10 text-destructive',
+    cardClass: 'bg-red-50',
+    badgeClass: 'chip-violet',
   },
   due_soon: {
     label: 'Due Soon',
-    borderClass: 'ring-pastel-yellow/50 ring-2',
-    badgeClass: 'bg-pastel-yellow/50 text-amber-800',
+    cardClass: 'surface-tint-yellow',
+    badgeClass: 'chip-yellow',
   },
   upcoming: {
     label: 'Upcoming',
-    borderClass: 'ring-pastel-green/50 ring-2',
-    badgeClass: 'bg-secondary/80 text-green-800',
+    cardClass: 'surface-tint-green',
+    badgeClass: 'chip-green',
   },
 }
 
@@ -44,8 +43,8 @@ export default function ReminderCard({ cat, status }: ReminderCardProps) {
   return (
     <Card
       className={cn(
-        'cursor-pointer transition-shadow hover:shadow-md',
-        config.borderClass
+        'cursor-pointer transition-shadow hover:shadow-md surface-card',
+        config.cardClass
       )}
       onClick={() => navigate(`/cats/${cat.id}`)}
     >
@@ -66,7 +65,7 @@ export default function ReminderCard({ cat, status }: ReminderCardProps) {
         <CardContent className="flex flex-1 flex-col gap-1 p-0">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold">{cat.name}</h3>
-            <Badge className={config.badgeClass}>{config.label}</Badge>
+            <span className={config.badgeClass}>{config.label}</span>
           </div>
           <p className="text-xs text-muted-foreground">
             Last checkup: {formatDate(cat.last_checkup)}

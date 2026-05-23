@@ -18,16 +18,18 @@ export default function CatHero({ cat }: CatHeroProps) {
     : 'No checkup scheduled'
 
   return (
-    <Card className="overflow-hidden">
-      <div className="aspect-[4/1] w-full bg-muted">
+    <Card className="overflow-hidden surface-card">
+      <div className="surface-tint-violet flex items-center justify-center pb-0 pt-8">
         {cat.photo_path ? (
-          <img
-            src={cat.photo_path}
-            alt={cat.name}
-            className="h-full w-full object-cover"
-          />
+          <div className="size-24 rounded-full bg-gradient-cozy p-1">
+            <img
+              src={cat.photo_path}
+              alt={cat.name}
+              className="h-full w-full rounded-full object-cover"
+            />
+          </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-6xl">
+          <div className="size-24 rounded-full bg-gradient-cozy flex items-center justify-center text-6xl">
             😺
           </div>
         )}

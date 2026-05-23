@@ -20,8 +20,8 @@ export default function CatSwitcher({ cats, selectedCatId, onSelect }: CatSwitch
             className={cn(
               'flex shrink-0 flex-col items-center gap-1 rounded-xl p-2 transition-colors',
               cat.id === selectedCatId
-                ? 'bg-primary/10 ring-2 ring-primary'
-                : 'hover:bg-muted',
+                ? 'surface-card ring-2 ring-brand-yellow/60'
+                : 'surface-tint-violet hover:opacity-80',
             )}
           >
             <div className="flex size-14 items-center justify-center overflow-hidden rounded-full bg-muted">

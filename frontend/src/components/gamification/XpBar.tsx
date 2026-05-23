@@ -17,9 +17,9 @@ export default function XpBar({ xp }: XpBarProps) {
           {xp.currentXp} / {xp.nextLevelXp} XP
         </span>
       </div>
-      <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-brand-violet-soft">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-pastel-yellow to-pastel-green transition-all duration-500"
+          className="h-full rounded-full bg-gradient-sunny transition-all duration-500"
           style={{ width: `${fillPercent}%` }}
         />
       </div>

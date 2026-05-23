@@ -14,8 +14,8 @@ export default function BadgeShelf({ badges }: BadgeShelfProps) {
             key={badge.id}
             className={`flex flex-col items-center gap-1 rounded-lg p-2 text-center transition-transform hover:scale-110 ${
               badge.earned
-                ? 'bg-primary/10'
-                : 'bg-muted/50'
+                ? 'bg-gradient-sunny'
+                : 'surface-tint-violet opacity-50'
             }`}
             title={badge.description}
           >
