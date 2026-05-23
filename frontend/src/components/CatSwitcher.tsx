@@ -12,13 +12,17 @@ export default function CatSwitcher({ cats, selectedCatId, onSelect }: CatSwitch
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-medium text-muted-foreground">Your cats</h3>
-      <div className="flex gap-3 overflow-x-auto pb-2">
+      <div role="listbox" aria-label="Select cat" className="flex gap-3 overflow-x-auto pb-2">
         {cats.map((cat) => (
-          <button
+          <div
             key={cat.id}
+            role="option"
+            aria-selected={selectedCatId === cat.id}
+            tabIndex={0}
             onClick={() => onSelect(cat.id)}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(cat.id); } }}
             className={cn(
-              'flex shrink-0 flex-col items-center gap-1 rounded-xl p-2 transition-colors',
+              'flex shrink-0 cursor-pointer flex-col items-center gap-1 rounded-xl p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-violet',
               cat.id === selectedCatId
                 ? 'surface-card ring-2 ring-brand-yellow/60'
                 : 'surface-tint-violet hover:opacity-80',
@@ -37,7 +41,7 @@ export default function CatSwitcher({ cats, selectedCatId, onSelect }: CatSwitch
               )}
             </div>
             <span className="max-w-16 truncate text-xs font-medium">{cat.name}</span>
-          </button>
+          </div>
         ))}
         <Link
           to="/cats/new"

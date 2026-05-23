@@ -18,6 +18,7 @@ export default function BadgeShelf({ badges }: BadgeShelfProps) {
                 : 'surface-tint-violet opacity-50'
             }`}
             title={badge.description}
+            aria-label={`${badge.label} — ${badge.earned ? 'earned' : 'not yet earned'}`}
           >
             <span
               className={`text-xl transition-all duration-300 ${
