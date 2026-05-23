@@ -95,6 +95,8 @@ export default function HomePage() {
         {/* Search + Sort */}
         <div className="mb-3 flex gap-2">
           <Input
+            id="cat-search"
+            name="cat-search"
             className="surface-card flex-1 border-0 text-sm"
             placeholder="Search cats…"
             value={search}
@@ -102,6 +104,8 @@ export default function HomePage() {
             aria-label="Search cats"
           />
           <select
+            id="cat-sort"
+            name="cat-sort"
             className="surface-tint-violet rounded-xl px-3 py-1.5 text-sm font-medium text-brand-ink outline-none"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortBy)}
