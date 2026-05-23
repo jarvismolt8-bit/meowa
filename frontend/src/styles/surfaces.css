@@ -1,0 +1,54 @@
+.surface-card {
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border-radius: 24px;
+}
+
+.surface-tint-green {
+  background-color: #D4F5E3;
+}
+
+.surface-tint-yellow {
+  background-color: #FFF4B8;
+}
+
+.surface-tint-violet {
+  background-color: #E4DBFF;
+}
+
+.surface-gradient {
+  background: linear-gradient(135deg, #FFD93D, #6DD3A8, #9B7EDC);
+}
+
+.chip-yellow {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #FFD93D;
+  color: #2A2438;
+}
+
+.chip-green {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #6DD3A8;
+  color: #FFFFFF;
+}
+
+.chip-violet {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #9B7EDC;
+  color: #FFFFFF;
+}

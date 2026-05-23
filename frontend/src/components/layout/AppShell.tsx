@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -30,7 +31,8 @@ export default function AppShell() {
               </Link>
             ))}
           </div>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-1">
+            <ThemeToggle />
             <Link
               to="/cats/new"
               className="rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"

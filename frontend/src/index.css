@@ -5,54 +5,71 @@
 @tailwind utilities;
 
 body {
-  background-color: #fafafa;
+  background-color: #FFFBF0;
   font-family: 'Fredoka', sans-serif;
+}
+
+.dark body {
+  background-color: #2A2438;
 }
 
 @layer base {
   :root {
-    --background: #fafafa;
-    --foreground: #2d2d2d;
+    --brand-yellow: #FFD93D;
+    --brand-yellow-soft: #FFF4B8;
+    --brand-green: #6DD3A8;
+    --brand-green-soft: #D4F5E3;
+    --brand-violet: #9B7EDC;
+    --brand-violet-soft: #E4DBFF;
+    --brand-cream: #FFFBF0;
+    --brand-ink: #2A2438;
+
+    --background: #FFFBF0;
+    --foreground: #2A2438;
     --card: #ffffff;
-    --card-foreground: #2d2d2d;
+    --card-foreground: #2A2438;
     --popover: #ffffff;
-    --popover-foreground: #2d2d2d;
-    --primary: #A8E6CF;
+    --popover-foreground: #2A2438;
+    --primary: #6DD3A8;
     --primary-foreground: #1B4332;
-    --secondary: #C5DAC1;
-    --secondary-foreground: #2D6A4F;
-    --muted: #FFF3B0;
+    --secondary: #D4F5E3;
+    --secondary-foreground: #2A2438;
+    --muted: #FFF4B8;
     --muted-foreground: #6B7280;
-    --accent: #B8D8D0;
-    --accent-foreground: #1B4332;
+    --accent: #E4DBFF;
+    --accent-foreground: #2A2438;
     --destructive: #FFADAD;
     --destructive-foreground: #FFFFFF;
     --border: #E5E7EB;
     --input: #D1D5DB;
-    --ring: #A8E6CF;
+    --ring: #6DD3A8;
     --radius: 0.75rem;
   }
   .dark {
-    --background: #0D1F17;
+    --background: #2A2438;
     --foreground: #E2E8F0;
-    --card: #162E22;
+    --card: #3A3352;
     --card-foreground: #E2E8F0;
-    --popover: #162E22;
+    --popover: #3A3352;
     --popover-foreground: #E2E8F0;
-    --primary: #6BC9A0;
-    --primary-foreground: #0D1F17;
-    --secondary: #2D5A44;
+    --primary: #6DD3A8;
+    --primary-foreground: #1B4332;
+    --secondary: #4A3F5C;
     --secondary-foreground: #E2E8F0;
-    --muted: #1A3A2A;
+    --muted: #3A3352;
     --muted-foreground: #9CA3AF;
-    --accent: #3D7A6A;
+    --accent: #4A3F5C;
     --accent-foreground: #E2E8F0;
     --destructive: #FFADAD;
-    --destructive-foreground: #0D1F17;
-    --border: #1A3A2A;
-    --input: #1A3A2A;
-    --ring: #6BC9A0;
+    --destructive-foreground: #FFFFFF;
+    --border: #4A3F5C;
+    --input: #4A3F5C;
+    --ring: #6DD3A8;
   }
+}
+
+html.dark {
+  background-color: #2A2438;
 }
 
 [data-slot="card"],
