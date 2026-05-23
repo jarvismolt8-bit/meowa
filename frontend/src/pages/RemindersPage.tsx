@@ -58,7 +58,7 @@ export default function RemindersPage() {
           <div className="confetti-piece left-[55%] top-2 size-2.5 rounded-full bg-pastel-yellow" />
           <div className="confetti-piece left-[30%] top-4 size-1.5 rounded-full bg-pastel-green" />
           <div className="confetti-piece left-[60%] top-1 size-2 rounded-full bg-pastel-blue" />
-          <div className="confetti-piece left-[45%] top-3 size-1.5 rounded-full bg-pastel-violet" />
+          <div className="confetti-piece left-[45%] top-3 size-1.5 rounded-full bg-pastel-mint" />
           <div className="confetti-piece left-[50%] top-5 size-2 rounded-full bg-pastel-yellow" />
           <span className="text-6xl">🎉</span>
         </div>

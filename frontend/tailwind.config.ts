@@ -12,7 +12,7 @@ const config: Config = {
           green: '#A8E6CF',
           yellow: '#FFF3B0',
           blue: '#A0C4FF',
-          violet: '#CDB4DB',
+          mint: '#B5EAD7',
           red: '#FFADAD',
         },
       },

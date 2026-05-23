@@ -19,7 +19,7 @@ export default function CatHero({ cat }: CatHeroProps) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="aspect-[3/2] w-full bg-muted">
+      <div className="aspect-[4/1] w-full bg-muted">
         {cat.photo_path ? (
           <img
             src={cat.photo_path}
