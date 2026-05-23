@@ -4,10 +4,7 @@ import HomePage from '@/pages/HomePage'
 import CatDetailPage from '@/pages/CatDetailPage'
 import NewCatPage from '@/pages/NewCatPage'
 import EditCatPage from '@/pages/EditCatPage'
-
-function Reminders() {
-  return <div><h1 className="text-2xl font-bold">Reminders</h1></div>
-}
+import RemindersPage from '@/pages/RemindersPage'
 
 function Preview() {
   return (
@@ -105,7 +102,7 @@ export default function App() {
         <Route path="/cats/new" element={<NewCatPage />} />
         <Route path="/cats/:id" element={<CatDetailPage />} />
         <Route path="/cats/:id/edit" element={<EditCatPage />} />
-        <Route path="/reminders" element={<Reminders />} />
+        <Route path="/reminders" element={<RemindersPage />} />
         <Route path="/preview" element={<Preview />} />
       </Route>
     </Routes>
