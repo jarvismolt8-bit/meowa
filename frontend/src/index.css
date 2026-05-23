@@ -55,6 +55,26 @@ body {
   }
 }
 
+[data-slot="card"],
+[data-slot="button"]:not(:disabled) {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+[data-slot="card"]:hover,
+[data-slot="button"]:not(:disabled):hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes confetti-up {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+}
+
+.animate-confetti-up {
+  animation: confetti-up 1.5s ease-out forwards;
+}
+
 @keyframes confetti-fall {
   0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
   100% { transform: translateY(30px) rotate(180deg); opacity: 0; }

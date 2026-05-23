@@ -1,15 +1,22 @@
 import { useParams, Link } from 'react-router-dom'
 import { useCat } from '@/hooks/useCats'
+import { useVaccinations } from '@/hooks/useVaccinations'
+import { useMedical } from '@/hooks/useMedical'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import VaccinationsPanel from '@/components/VaccinationsPanel'
 import MedicalPanel from '@/components/MedicalPanel'
+import XpBar from '@/components/gamification/XpBar'
+import BadgeShelf from '@/components/gamification/BadgeShelf'
+import { computeXp, computeBadges } from '@/lib/gamification'
 
 export default function CatDetailPage() {
   const { id } = useParams<{ id: string }>()
   const catId = Number(id)
   const { data: cat, isLoading, error } = useCat(catId)
+  const { data: vaccinations } = useVaccinations(catId)
+  const { data: medicalEntries } = useMedical(catId)
 
   if (isLoading) {
     return (
@@ -39,6 +46,9 @@ export default function CatDetailPage() {
   }
 
   if (!cat) return null
+
+  const xp = computeXp(cat, vaccinations ?? [], medicalEntries ?? [])
+  const badges = computeBadges(cat, vaccinations ?? [], medicalEntries ?? [])
 
   return (
     <div className="space-y-6">
@@ -115,7 +125,10 @@ export default function CatDetailPage() {
       <div id="medical-slot" data-testid="medical-slot">
         <MedicalPanel catId={catId} />
       </div>
-      <div id="gamification-slot" data-testid="gamification-slot" />
+      <div id="gamification-slot" data-testid="gamification-slot" className="space-y-4">
+        <XpBar xp={xp} />
+        <BadgeShelf badges={badges} />
+      </div>
     </div>
   )
 }

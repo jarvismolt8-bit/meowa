@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog'
 import { useVaccinations, useAddVaccination, useDeleteVaccination } from '@/hooks/useVaccinations'
 import { PlusIcon, Trash2Icon } from 'lucide-react'
+import Confetti, { useConfetti } from '@/components/gamification/Confetti'
 
 interface VaccinationsPanelProps {
   catId: number
@@ -24,13 +25,21 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
   const { data: vaccinations, isLoading, error } = useVaccinations(catId)
   const addVaccination = useAddVaccination(catId)
   const deleteVaccination = useDeleteVaccination(catId)
+  const confetti = useConfetti(2000)
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim() || !date) return
     addVaccination.mutate(
       { name: name.trim(), date },
-      { onSuccess: () => { setOpen(false); setName(''); setDate('') } },
+      {
+        onSuccess: () => {
+          confetti.trigger()
+          setOpen(false)
+          setName('')
+          setDate('')
+        },
+      },
     )
   }
 
@@ -144,6 +153,7 @@ export default function VaccinationsPanel({ catId }: VaccinationsPanelProps) {
           </form>
         </DialogContent>
       </Dialog>
+      <Confetti particles={confetti.particles} />
     </>
   )
 }

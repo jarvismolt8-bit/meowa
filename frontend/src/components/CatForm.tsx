@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { X, Upload, Loader2, Plus } from 'lucide-react'
+import Confetti, { useConfetti } from '@/components/gamification/Confetti'
 
 interface CatFormProps {
   mode: 'create' | 'edit'
@@ -22,6 +23,7 @@ export default function CatForm({ mode, initialData, onSuccess }: CatFormProps) 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const objectUrlRef = useRef<string | null>(null)
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const confetti = useConfetti(2500)
 
   const [name, setName] = useState(initialData?.name ?? '')
   const [age, setAge] = useState(initialData?.age?.toString() ?? '')
@@ -136,6 +138,8 @@ export default function CatForm({ mode, initialData, onSuccess }: CatFormProps) 
 
       if (mode === 'create') {
         const cat = await createCat.mutateAsync(data)
+        confetti.trigger()
+        await new Promise((r) => setTimeout(r, 1200))
         onSuccess?.(cat)
       } else if (initialData) {
         const cat = await updateCat.mutateAsync({ id: initialData.id, data })
@@ -318,6 +322,7 @@ export default function CatForm({ mode, initialData, onSuccess }: CatFormProps) 
             </Button>
           </div>
         </form>
+        <Confetti particles={confetti.particles} />
       </CardContent>
     </Card>
   )
