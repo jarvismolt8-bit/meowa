@@ -14,10 +14,10 @@ beforeAll(async () => {
 });
 
 describe('GET /api/cats/:catId/medical', () => {
-  it('returns 200 + empty array for a new cat', async () => {
+  it('returns 200 + paginated shape for a new cat', async () => {
     const res = await request.get(`/api/cats/${catId}/medical`);
     expect(res.status).toBe(200);
-    expect(res.body).toEqual([]);
+    expect(res.body).toMatchObject({ data: [], total: 0, limit: 20, offset: 0 });
   });
 });
 

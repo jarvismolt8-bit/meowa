@@ -54,8 +54,15 @@ client.interceptors.response.use(
   }
 );
 
+export interface PaginatedResponse<T> {
+  data: T[]
+  total: number
+  limit: number
+  offset: number
+}
+
 export const catsApi = {
-  list: () => client.get<Cat[]>('/api/cats').then((r) => r.data),
+  list: () => client.get<PaginatedResponse<Cat> | Cat[]>('/api/cats').then((r) => r.data),
   get: (id: number) => client.get<Cat>(`/api/cats/${id}`).then((r) => r.data),
   create: (data: Partial<Cat>) => client.post<Cat>('/api/cats', data).then((r) => r.data),
   update: (id: number, data: Partial<Cat>) =>

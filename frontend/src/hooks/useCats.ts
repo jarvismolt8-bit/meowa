@@ -4,7 +4,11 @@ import { catsApi, type Cat } from '@/lib/api'
 export function useCats() {
   return useQuery<Cat[]>({
     queryKey: ['cats'],
-    queryFn: catsApi.list,
+    queryFn: async () => {
+      const response = await catsApi.list()
+      const cats = Array.isArray(response) ? response : response.data
+      return cats
+    },
   })
 }
 

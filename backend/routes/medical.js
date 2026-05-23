@@ -19,9 +19,12 @@ function requireCat(req, res, next) {
 
 router.get('/', requireCat, (req, res, next) => {
   try {
+    const limit = Math.min(parseInt(req.query.limit) || 20, 100);
+    const offset = parseInt(req.query.offset) || 0;
     const db = getDb();
-    const rows = db.prepare('SELECT * FROM medical_entries WHERE cat_id = ? ORDER BY date DESC').all(req.params.id);
-    res.json(rows);
+    const total = db.prepare('SELECT COUNT(*) as n FROM medical_entries WHERE cat_id = ?').get(req.params.id).n;
+    const rows = db.prepare('SELECT * FROM medical_entries WHERE cat_id = ? ORDER BY date DESC LIMIT ? OFFSET ?').all(req.params.id, limit, offset);
+    res.json({ data: rows, total, limit, offset });
   } catch (e) {
     next(new HttpError(500, e.message));
   }

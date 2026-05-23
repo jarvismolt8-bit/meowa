@@ -9,10 +9,19 @@ beforeAll(async () => {
 });
 
 describe('GET /api/cats', () => {
-  it('returns 200 + empty array when no cats exist', async () => {
+  it('returns 200 + paginated shape when no cats exist', async () => {
     const res = await request.get('/api/cats');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual([]);
+    expect(res.body).toMatchObject({ data: [], total: 0, limit: 20, offset: 0 });
+  });
+
+  it('respects limit and offset query params', async () => {
+    const res = await request.get('/api/cats?limit=5&offset=0');
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('data');
+    expect(res.body).toHaveProperty('total');
+    expect(res.body.limit).toBe(5);
+    expect(res.body.offset).toBe(0);
   });
 });
 
