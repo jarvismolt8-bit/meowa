@@ -1,5 +1,6 @@
-import { useParams, Link } from 'react-router-dom'
-import { useCat } from '@/hooks/useCats'
+import { useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useCat, useDeleteCat } from '@/hooks/useCats'
 import { useVaccinations } from '@/hooks/useVaccinations'
 import { useMedical } from '@/hooks/useMedical'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,14 +10,18 @@ import VaccinationsPanel from '@/components/VaccinationsPanel'
 import MedicalPanel from '@/components/MedicalPanel'
 import XpBar from '@/components/gamification/XpBar'
 import BadgeShelf from '@/components/gamification/BadgeShelf'
+import ConfirmDialog from '@/components/ConfirmDialog'
 import { computeXp, computeBadges } from '@/lib/gamification'
 
 export default function CatDetailPage() {
   const { id } = useParams<{ id: string }>()
   const catId = Number(id)
+  const navigate = useNavigate()
   const { data: cat, isLoading, error } = useCat(catId)
   const { data: vaccinations } = useVaccinations(catId)
   const { data: medicalEntries } = useMedical(catId)
+  const deleteCat = useDeleteCat()
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
   if (isLoading) {
     return (
@@ -49,6 +54,12 @@ export default function CatDetailPage() {
 
   const xp = computeXp(cat, vaccinations ?? [], medicalEntries ?? [])
   const badges = computeBadges(cat, vaccinations ?? [], medicalEntries ?? [])
+
+  const handleDeleteConfirm = async () => {
+    await deleteCat.mutateAsync(catId)
+    setShowDeleteDialog(false)
+    navigate('/')
+  }
 
   return (
     <div className="space-y-6">
@@ -120,6 +131,14 @@ export default function CatDetailPage() {
           <Button className="w-full bg-gradient-sunny text-white" asChild>
             <Link to={`/cats/${cat.id}/checkup`}>Take Action</Link>
           </Button>
+
+          <button
+            type="button"
+            onClick={() => setShowDeleteDialog(true)}
+            className="surface-tint-violet w-full rounded-xl px-4 py-2 text-sm font-medium text-[var(--brand-ink)] transition-colors hover:bg-red-100 hover:text-red-600"
+          >
+            Delete cat
+          </button>
         </CardContent>
       </Card>
 
@@ -133,6 +152,14 @@ export default function CatDetailPage() {
         <XpBar xp={xp} />
         <BadgeShelf badges={badges} />
       </div>
+
+      <ConfirmDialog
+        open={showDeleteDialog}
+        title="Delete cat?"
+        description="This cannot be undone."
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setShowDeleteDialog(false)}
+      />
     </div>
   )
 }
