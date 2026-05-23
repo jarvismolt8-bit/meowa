@@ -3,9 +3,9 @@ import ReminderCard from '@/components/ReminderCard'
 import { AlertCircle } from 'lucide-react'
 
 const sectionConfig = {
-  overdue: { title: 'Overdue', icon: '🔴' },
-  due_soon: { title: 'Due Soon', icon: '🟡' },
-  upcoming: { title: 'Upcoming', icon: '🟢' },
+  overdue: { title: 'Overdue', icon: '🔴', tint: 'bg-pastel-red' },
+  due_soon: { title: 'Due Soon', icon: '🟡', tint: 'bg-brand-yellow-soft' },
+  upcoming: { title: 'Upcoming', icon: '🟢', tint: 'bg-brand-green-soft' },
 } as const
 
 export default function RemindersPage() {
@@ -13,7 +13,7 @@ export default function RemindersPage() {
 
   if (isLoading) {
     return (
-      <div className="space-y-8">
+      <div className="space-y-8 bg-brand-cream">
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="space-y-3">
             <div className="h-6 w-32 animate-pulse rounded bg-muted" />
@@ -33,7 +33,7 @@ export default function RemindersPage() {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
+      <div className="flex flex-col items-center justify-center py-20 text-center bg-brand-cream">
         <AlertCircle className="size-12 text-destructive" />
         <p className="mt-4 text-lg font-medium text-destructive">
           Failed to load reminders
@@ -52,7 +52,7 @@ export default function RemindersPage() {
       data.upcoming.length === 0)
   ) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
+      <div className="flex flex-col items-center justify-center py-20 text-center bg-brand-cream">
         <div className="relative mb-4" aria-hidden>
           <div className="confetti-piece left-[40%] top-0 size-2 rounded-full bg-pastel-red" />
           <div className="confetti-piece left-[55%] top-2 size-2.5 rounded-full bg-pastel-yellow" />
@@ -73,7 +73,7 @@ export default function RemindersPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 bg-brand-cream">
       <h1 className="text-2xl font-bold">Reminders</h1>
       {(['overdue', 'due_soon', 'upcoming'] as const).map((key) => {
         const section = sectionConfig[key]
@@ -83,7 +83,7 @@ export default function RemindersPage() {
 
         return (
           <section key={key} className="space-y-3">
-            <h2 className="flex items-center gap-2 text-lg font-semibold">
+            <h2 className={`flex items-center gap-2 rounded-xl px-4 py-2 text-lg font-semibold ${section.tint}`}>
               <span>{section.icon}</span>
               {section.title}
               <span className="text-sm font-normal text-muted-foreground">

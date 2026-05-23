@@ -9,16 +9,17 @@ const navLinks = [
 export default function AppShell() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border bg-card shadow-sm">
+      <header className="sticky top-0 z-40 surface-card shadow-sm">
+        <div className="h-0.5 bg-gradient-meowa" />
         <nav className="mx-auto flex max-w-4xl items-center gap-6 px-4 py-3">
           <Link
             to="/"
             className="flex items-center gap-2 text-lg font-semibold tracking-tight"
           >
-            <span className="flex size-8 items-center justify-center rounded-xl bg-primary text-xl text-primary-foreground">
+            <span className="flex size-8 items-center justify-center rounded-xl bg-brand-yellow text-xl text-brand-ink">
               😺
             </span>
-            Meowa
+            <span className="bg-gradient-meowa bg-clip-text text-transparent">Meowa</span>
           </Link>
           <div className="flex items-center gap-1">
             {navLinks.map((link) => (

@@ -60,12 +60,12 @@ export default function CatDetailPage() {
       </Link>
 
       <Card className="overflow-hidden">
-        <div className="aspect-[3/1] w-full bg-muted">
+        <div className="surface-gradient aspect-[3/1] w-full">
           {cat.photo_path ? (
             <img
               src={cat.photo_path}
               alt={cat.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover mix-blend-multiply"
             />
           ) : (
             <div className="flex h-full items-center justify-center text-6xl">
@@ -116,6 +116,10 @@ export default function CatDetailPage() {
               </p>
             </div>
           )}
+
+          <Button className="w-full bg-gradient-sunny text-white" asChild>
+            <Link to={`/cats/${cat.id}/checkup`}>Take Action</Link>
+          </Button>
         </CardContent>
       </Card>
 
