@@ -72,7 +72,9 @@ export const catsApi = {
 
 export const vaccinationsApi = {
   list: (catId: number) =>
-    client.get<Vaccination[]>(`/api/cats/${catId}/vaccinations`).then((r) => r.data),
+    client.get<PaginatedResponse<Vaccination>>(`/api/cats/${catId}/vaccinations`).then(
+      (r) => (Array.isArray(r.data) ? r.data : r.data.data ?? []),
+    ),
   create: (catId: number, data: { name: string; date: string }) =>
     client.post<Vaccination>(`/api/cats/${catId}/vaccinations`, data).then((r) => r.data),
   update: (catId: number, vId: number, data: { name: string; date: string }) =>
@@ -83,7 +85,9 @@ export const vaccinationsApi = {
 
 export const medicalApi = {
   list: (catId: number) =>
-    client.get<MedicalEntry[]>(`/api/cats/${catId}/medical`).then((r) => r.data),
+    client.get<PaginatedResponse<MedicalEntry>>(`/api/cats/${catId}/medical`).then(
+      (r) => (Array.isArray(r.data) ? r.data : r.data.data ?? []),
+    ),
   create: (catId: number, data: { date: string; notes: string }) =>
     client.post<MedicalEntry>(`/api/cats/${catId}/medical`, data).then((r) => r.data),
   update: (catId: number, mId: number, data: { date: string; notes: string }) =>
