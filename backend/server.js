@@ -9,6 +9,13 @@ const server = app.listen(config.PORT, () => {
   logger.info({ port: config.PORT }, 'Backend started');
 });
 
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    logger.error(`Port ${config.PORT} is already in use. Kill the existing process and retry.`);
+    process.exit(1);
+  }
+});
+
 function gracefulShutdown(signal) {
   logger.info({ signal }, 'Shutting down');
   server.close(() => {
