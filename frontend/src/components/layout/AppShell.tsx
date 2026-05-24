@@ -11,7 +11,7 @@ export default function AppShell() {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <header className="sticky top-0 z-40 surface-card shadow-sm">
         <div className="h-0.5 bg-gradient-meowa" />
-        <nav className="mx-auto flex max-w-4xl items-center gap-6 px-4 py-3">
+        <nav className="mx-auto flex max-w-4xl items-center gap-2 sm:gap-6 px-4 py-3">
           <Link
             to="/"
             className="flex items-center gap-2 text-lg font-semibold tracking-tight"
@@ -34,16 +34,16 @@ export default function AppShell() {
           </div>
           <div className="ml-auto flex items-center gap-1">
             <ThemeToggle />
-            <Link
-              to="/cats/new"
-              className="rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-            >
-              + Add
-            </Link>
+          <Link
+            to="/cats/new"
+            className="flex-shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+          >
+            + Add
+          </Link>
           </div>
         </nav>
       </header>
-      <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-6">
+      <main className="mx-auto w-full max-w-4xl flex-1 min-h-0 overflow-y-auto px-4 py-6">
         <Outlet />
       </main>
       <footer className="border-t border-border bg-card py-4 text-center text-sm text-muted-foreground">

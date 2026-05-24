@@ -9,5 +9,9 @@ export default function NewCatPage() {
     navigate(`/cats/${cat.id}`)
   }
 
-  return <CatForm mode="create" onSuccess={handleSuccess} />
+  return (
+    <div className="min-h-0">
+      <CatForm mode="create" onSuccess={handleSuccess} />
+    </div>
+  )
 }

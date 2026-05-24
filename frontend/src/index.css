@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background-color: #FFFBF0;
   font-family: 'Fredoka', sans-serif;

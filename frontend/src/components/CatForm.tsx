@@ -96,7 +96,7 @@ export default function CatForm({ mode, initialData, onSuccess }: CatFormProps) 
   }
 
   return (
-    <div className="surface-card p-6">
+    <div className="surface-card p-6 pb-8 sm:pb-6">
       <h2 className="mb-5 text-xl font-semibold text-[var(--brand-ink)]">
         {mode === 'create' ? 'Add a New Cat' : `Edit ${initialData?.name ?? 'Cat'}`}
       </h2>
